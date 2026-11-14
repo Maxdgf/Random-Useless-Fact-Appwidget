@@ -16,6 +16,7 @@ import androidx.glance.appwidget.action.ActionCallback
 import androidx.glance.appwidget.action.actionRunCallback
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
+import androidx.glance.appwidget.state.getAppWidgetState
 import androidx.glance.appwidget.state.updateAppWidgetState
 import androidx.glance.background
 import androidx.glance.currentState
@@ -58,8 +59,15 @@ class RandomUselessFactWidget : GlanceAppWidget() {
     }
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
-        val widgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
-        enqueueFactDownloadWork(context, widgetId)
+        val preferences = getAppWidgetState<Preferences>(context, id)
+
+        val currentUselessFact = preferences[Fact.text]
+        val factSourceName = preferences[Fact.source]
+
+        if (currentUselessFact == null && factSourceName == null) {
+            val widgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
+            enqueueFactDownloadWork(context, widgetId)
+        }
 
         provideContent {
             val preferences = currentState<Preferences>()
