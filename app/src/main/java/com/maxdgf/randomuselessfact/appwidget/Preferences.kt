@@ -2,12 +2,12 @@ package com.maxdgf.randomuselessfact.appwidget
 
 import androidx.datastore.preferences.core.stringPreferencesKey
 
-object Fact {
-    val text = stringPreferencesKey("current_useless_fact")
-    val source = stringPreferencesKey("source_name")
+object FactData {
+    val text = stringPreferencesKey("fact_text")
+    val source = stringPreferencesKey("fact_source_name")
 }
 
-object FactResult {
-    val state = stringPreferencesKey("fact_work_state")
-    val errorMessage = stringPreferencesKey("error_message")
+object FactRequestResult {
+    val state = stringPreferencesKey("fact_request_state")
+    val errorMessage = stringPreferencesKey("fact_request_error_message")
 }

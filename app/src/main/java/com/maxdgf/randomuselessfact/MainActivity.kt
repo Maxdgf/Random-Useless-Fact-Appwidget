@@ -22,6 +22,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
+                    // Text guide, how to pin widget
                     val appName = stringResource(R.string.app_name)
                     Text(
                         text = """

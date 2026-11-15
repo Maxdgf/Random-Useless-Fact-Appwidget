@@ -5,5 +5,5 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 
 class RandomUselessFactWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget
-        get() = RandomUselessFactWidget()
+        get() = RandomFactWidget() // provide glance appwidget
 }

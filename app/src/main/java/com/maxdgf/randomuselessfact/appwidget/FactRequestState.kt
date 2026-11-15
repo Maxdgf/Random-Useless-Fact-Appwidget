@@ -1,6 +1,6 @@
 package com.maxdgf.randomuselessfact.appwidget
 
-enum class FactWorkState {
+enum class FactRequestState {
     IDLE,
     RUNNING,
     SUCCESS,

@@ -1,4 +1,5 @@
-package com.maxdgf.randomuselessfact.appwidget
+package com.maxdgf.randomuselessfact.appwidget.ui
+
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
@@ -25,8 +26,15 @@ import androidx.glance.layout.width
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
+
 import com.maxdgf.randomuselessfact.R
 
+
+/** Creates screen for random useless fact appwidget.
+ *
+ * @param factText fact's text
+ * @param factSource fact's source name
+ * @param onRefreshFact will be called when user clicks on refresh fact button */
 @Composable
 fun RandomUselessFactWidgetScreen(
     factText: String,
@@ -34,6 +42,7 @@ fun RandomUselessFactWidgetScreen(
     onRefreshFact: () -> Unit
 ) {
     Column(modifier = GlanceModifier.fillMaxSize()) {
+        // Topbar
         Row(
             modifier = GlanceModifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
@@ -45,6 +54,7 @@ fun RandomUselessFactWidgetScreen(
                 colorFilter = ColorFilter.tint(colorProvider = GlanceTheme.colors.primary)
             )
 
+            // FactData source name text
             Text(
                 text = factSource,
                 modifier = GlanceModifier
@@ -82,7 +92,7 @@ fun RandomUselessFactWidgetScreen(
 
         Spacer(modifier = GlanceModifier.height(5.dp))
 
-        // Fact text field
+        // FactData text field
         Box(
             modifier = GlanceModifier
                 .fillMaxWidth()
