@@ -41,7 +41,7 @@ fun FactLoadingErrorScreen(
                 .cornerRadius(radius = 15.dp)
         ) {
             Text(
-                text = "FactData not uploaded, please retry or load latest fact!\nError: $message",
+                text = "Fact not uploaded, please retry or load latest fact!\nError: $message",
                 style = TextStyle(
                     color = GlanceTheme.colors.onError,
                     fontWeight = FontWeight.Medium,

@@ -100,7 +100,7 @@ class RandomFactWidget : GlanceAppWidget() {
                     FactRequestState.SUCCESS, FactRequestState.IDLE -> {
                         RandomUselessFactWidgetScreen(
                             factText = currentFact ?: "???",
-                            factSource = sourceName ?: "FactData not loaded, try refresh now.",
+                            factSource = sourceName ?: "Fact not loaded, try refresh now.",
                             onRefreshFact = {
                                 val widgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
                                 enqueueFactDownloadWork(context, widgetId)
