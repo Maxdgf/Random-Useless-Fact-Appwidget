@@ -83,43 +83,48 @@ class RandomFactWidget : GlanceAppWidget() {
                 runCatching { FactRequestState.valueOf(state) }.getOrNull()
             } ?: FactRequestState.RUNNING
 
-            Box(
-                modifier = GlanceModifier
-                    .fillMaxSize()
-                    .padding(all = 7.dp)
-                    .background(colorProvider = GlanceTheme.colors.surface),
-                contentAlignment = Alignment.Center
-            ) {
-                val currentFact = preferences[FactData.text] // current fact's text
-                val sourceName = preferences[FactData.source] // current fact's source name
+            GlanceTheme(colors = RandomFactWidgetTheme.colors) {
+                Box(
+                    modifier = GlanceModifier
+                        .fillMaxSize()
+                        .padding(all = 7.dp)
+                        .background(colorProvider = GlanceTheme.colors.surface),
+                    contentAlignment = Alignment.Center
+                ) {
+                    val currentFact = preferences[FactData.text] // current fact's text
+                    val sourceName = preferences[FactData.source] // current fact's source name
 
-                // match screens with fact request state
-                when (factRequestState) {
-                    FactRequestState.RUNNING -> FactLoadingScreen()
+                    // match screens with fact request state
+                    when (factRequestState) {
+                        FactRequestState.RUNNING -> FactLoadingScreen()
 
-                    FactRequestState.SUCCESS, FactRequestState.IDLE -> {
-                        RandomUselessFactWidgetScreen(
-                            factText = currentFact ?: "???",
-                            factSource = sourceName ?: "Fact not loaded, try refresh now.",
-                            onRefreshFact = {
-                                val widgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
-                                enqueueFactDownloadWork(context, widgetId)
-                            }
-                        )
-                    }
+                        FactRequestState.SUCCESS, FactRequestState.IDLE -> {
+                            RandomUselessFactWidgetScreen(
+                                factText = currentFact ?: "???",
+                                factSource = sourceName ?: "Fact not loaded, try refresh now.",
+                                onRefreshFact = {
+                                    val widgetId =
+                                        GlanceAppWidgetManager(context).getAppWidgetId(id)
+                                    enqueueFactDownloadWork(context, widgetId)
+                                }
+                            )
+                        }
 
-                    FactRequestState.FAILURE -> {
-                        val errorMessage = preferences[FactRequestResult.errorMessage] ?: "Unknown error."
+                        FactRequestState.FAILURE -> {
+                            val errorMessage =
+                                preferences[FactRequestResult.errorMessage] ?: "Unknown error."
 
-                        FactLoadingErrorScreen(
-                            message = errorMessage,
-                            showLoadLastLoadedFactButton = currentFact != null && sourceName != null,
-                            onShowLastLoadedFact = actionRunCallback<SwitchToIdleStateAction>(),
-                            onRetry = {
-                                val widgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
-                                enqueueFactDownloadWork(context, widgetId)
-                            }
-                        )
+                            FactLoadingErrorScreen(
+                                message = errorMessage,
+                                showLoadLastLoadedFactButton = currentFact != null && sourceName != null,
+                                onShowLastLoadedFact = actionRunCallback<SwitchToIdleStateAction>(),
+                                onRetry = {
+                                    val widgetId =
+                                        GlanceAppWidgetManager(context).getAppWidgetId(id)
+                                    enqueueFactDownloadWork(context, widgetId)
+                                }
+                            )
+                        }
                     }
                 }
             }
