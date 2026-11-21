@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="7dp"
+    android:background="@color/surface_widget_color">
+
+    <!-- App widget's top bar -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <!-- Lightbulb icon -->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/outline_lightbulb_24"
+            android:contentDescription="@string/lightbulb_icon_content_description"
+            android:tint="@color/primary_widget_color" />
+
+        <!-- Fact's source name view -->
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corners_shape"
+            android:backgroundTint="@color/primary_widget_color"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/random_fact_source_name"
+                android:textStyle="bold"
+                android:textColor="@color/on_primary_widget_color"
+                android:textSize="13sp"/>
+
+        </FrameLayout>
+
+        <!-- Colored spacer line -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="2dp"
+            android:background="@drawable/rounded_corners_shape"
+            android:backgroundTint="@color/primary_widget_color" />
+
+        <!-- Refresh random fact icon button -->
+        <FrameLayout
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/circle_shape"
+            android:backgroundTint="@color/primary_widget_color">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/refresh_icon_button_content_description"
+                android:src="@drawable/baseline_refresh_24"
+                android:tint="@color/on_primary_widget_color"/>
+
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <!-- Random fact's text view -->
+    <FrameLayout android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_corners_shape"
+        android:backgroundTint="@color/on_surface_widget_panel_color">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/random_fact_text"
+            android:textColor="@color/on_surface_color"/>
+
+    </FrameLayout>
+
+</LinearLayout>

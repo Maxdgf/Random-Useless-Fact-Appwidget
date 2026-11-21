@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Random Useless Fact</string>
+
+    <string name="widget_description">A widget that shows a random useless fact.</string>
+
+    <string name="lightbulb_icon_content_description">Lightbulb icon</string>
+    <string name="random_fact_source_name">facts.com</string>
+    <string name="refresh_icon_button_content_description">Refresh useless fact button</string>
+    <string name="random_fact_text">💡 Some useless random fact</string>
 </resources>

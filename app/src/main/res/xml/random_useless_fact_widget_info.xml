@@ -4,4 +4,6 @@
     android:updatePeriodMillis="0"
     android:widgetCategory="home_screen"
     android:resizeMode="horizontal|vertical"
+    android:description="@string/widget_description"
+    android:previewImage="@drawable/random_useless_fact_widget_image_preview"
     android:initialLayout="@layout/glance_default_loading_layout"  />
