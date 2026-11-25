@@ -15,6 +15,8 @@ import androidx.glance.layout.Column
 import androidx.glance.layout.Spacer
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
+import androidx.glance.semantics.semantics
+import androidx.glance.semantics.testTag
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
@@ -42,6 +44,7 @@ fun FactLoadingErrorScreen(
         ) {
             Text(
                 text = "Fact not uploaded, please retry or load latest fact!\nError: $message",
+                modifier = GlanceModifier.semantics { testTag = "error_message_text" },
                 style = TextStyle(
                     color = GlanceTheme.colors.onError,
                     fontWeight = FontWeight.Medium,
@@ -56,15 +59,21 @@ fun FactLoadingErrorScreen(
         if (showLoadLastLoadedFactButton) {
             Button(
                 text = "last fact",
+                modifier = GlanceModifier.semantics { testTag = "show_last_fact_button" },
                 onClick = onShowLastLoadedFact
             )
 
-            Spacer(modifier = GlanceModifier.height(5.dp))
+            Spacer(
+                modifier = GlanceModifier
+                    .height(5.dp)
+                    .semantics { testTag = "show_last_fact_button_spacer" }
+            )
         }
 
         // Retry button
         Button(
             text = "retry",
+            modifier = GlanceModifier.semantics { testTag = "retry_button" },
             onClick = onRetry
         )
     }

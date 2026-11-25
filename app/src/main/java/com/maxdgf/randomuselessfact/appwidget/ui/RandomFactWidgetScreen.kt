@@ -23,6 +23,8 @@ import androidx.glance.layout.height
 import androidx.glance.layout.padding
 import androidx.glance.layout.size
 import androidx.glance.layout.width
+import androidx.glance.semantics.semantics
+import androidx.glance.semantics.testTag
 import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
@@ -60,7 +62,8 @@ fun RandomUselessFactWidgetScreen(
                 modifier = GlanceModifier
                     .padding(all = 5.dp)
                     .background(colorProvider = GlanceTheme.colors.primary)
-                    .cornerRadius(radius = 18.dp),
+                    .cornerRadius(radius = 18.dp)
+                    .semantics { testTag = "fact_source" },
                 style = TextStyle(
                     color = GlanceTheme.colors.onPrimary,
                     fontWeight = FontWeight.Bold,
@@ -82,7 +85,9 @@ fun RandomUselessFactWidgetScreen(
             // Refresh fact button
             CircleIconButton(
                 onClick = onRefreshFact,
-                modifier = GlanceModifier.size(35.dp),
+                modifier = GlanceModifier
+                    .size(35.dp)
+                    .semantics { testTag = "refresh_button" },
                 imageProvider = ImageProvider(R.drawable.baseline_refresh_24),
                 contentDescription = "Refresh useless fact button",
                 backgroundColor = GlanceTheme.colors.primary,
@@ -104,6 +109,7 @@ fun RandomUselessFactWidgetScreen(
         ) {
             Text(
                 text = "💡 $factText", // lightbulb emoji for style :)
+                modifier = GlanceModifier.semantics { testTag = "fact_text" },
                 style = TextStyle(
                     color = GlanceTheme.colors.onSurface,
                     fontWeight = FontWeight.Medium,
