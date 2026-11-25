@@ -53,6 +53,8 @@ dependencies {
     implementation(libs.androidx.glance)
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.glance.material3)
+    androidTestImplementation(libs.androidx.glance.testing)
+    androidTestImplementation(libs.androidx.glance.appwidget.testing)
 
     // Ktor implementation
     implementation(libs.ktor.client.core)
