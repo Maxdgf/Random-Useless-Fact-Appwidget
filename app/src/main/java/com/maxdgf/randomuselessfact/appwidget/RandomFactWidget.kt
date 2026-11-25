@@ -46,20 +46,23 @@ class SwitchToIdleStateAction : ActionCallback {
 class RandomFactWidget : GlanceAppWidget() {
     /** Enqueues work of requesting random fact by API.
      * @param context glance appwidget context
-     * @param id glance appwidget id int */
-    private fun enqueueFactDownloadWork(context: Context, id: Int) {
+     * @param id glance appwidget id */
+    private fun enqueueFactDownloadWork(context: Context, id: GlanceId) {
+        // get glance widget id int
+        val widgetIdInt = GlanceAppWidgetManager(context).getAppWidgetId(id)
+
         // build work request
         val workerRequest = OneTimeWorkRequest.Builder(RandomFactWorker::class)
             .setInputData(
                 Data.Builder()
-                    .putInt("glance_appwidget_id", id) // put glance appwidget id int
+                    .putInt("glance_appwidget_id", widgetIdInt) // put glance appwidget id int
                     .build()
             )
             .build()
 
         // enqueue work with unique name
         WorkManager.getInstance(context)
-            .enqueueUniqueWork("glance_appwidget_work_$id", ExistingWorkPolicy.KEEP, workerRequest)
+            .enqueueUniqueWork("glance_appwidget_work_$widgetIdInt", ExistingWorkPolicy.KEEP, workerRequest)
     }
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
@@ -70,10 +73,8 @@ class RandomFactWidget : GlanceAppWidget() {
 
         // check current fact's data
         // if current fact's data is not exists, request fact
-        if (currentFact == null && factSourceName == null) {
-            val widgetId = GlanceAppWidgetManager(context).getAppWidgetId(id)
-            enqueueFactDownloadWork(context, widgetId)
-        }
+        if (currentFact == null && factSourceName == null)
+            enqueueFactDownloadWork(context, id)
 
         provideContent {
             val preferences = currentState<Preferences>()
@@ -102,11 +103,7 @@ class RandomFactWidget : GlanceAppWidget() {
                             RandomUselessFactWidgetScreen(
                                 factText = currentFact ?: "???",
                                 factSource = sourceName ?: "Fact not loaded, try refresh now.",
-                                onRefreshFact = {
-                                    val widgetId =
-                                        GlanceAppWidgetManager(context).getAppWidgetId(id)
-                                    enqueueFactDownloadWork(context, widgetId)
-                                }
+                                onRefreshFact = { enqueueFactDownloadWork(context, id) }
                             )
                         }
 
@@ -118,11 +115,7 @@ class RandomFactWidget : GlanceAppWidget() {
                                 message = errorMessage,
                                 showLoadLastLoadedFactButton = currentFact != null && sourceName != null,
                                 onShowLastLoadedFact = actionRunCallback<SwitchToIdleStateAction>(),
-                                onRetry = {
-                                    val widgetId =
-                                        GlanceAppWidgetManager(context).getAppWidgetId(id)
-                                    enqueueFactDownloadWork(context, widgetId)
-                                }
+                                onRetry = { enqueueFactDownloadWork(context, id) }
                             )
                         }
                     }
