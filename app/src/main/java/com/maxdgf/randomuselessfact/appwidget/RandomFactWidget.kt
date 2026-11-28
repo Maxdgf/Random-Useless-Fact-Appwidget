@@ -123,4 +123,16 @@ class RandomFactWidget : GlanceAppWidget() {
             }
         }
     }
+
+    override suspend fun onDelete(context: Context, glanceId: GlanceId) {
+        super.onDelete(context, glanceId)
+
+        val workManager = WorkManager.getInstance(context) // get work manager instance
+        val widgetIdInt = GlanceAppWidgetManager(context).getAppWidgetId(glanceId) // get Glance widget's id int
+        val workName = "glance_appwidget_work_$widgetIdInt" // build widget's work unique name
+
+        // check if the work is going
+        if (!workManager.getWorkInfosForUniqueWork(workName).isDone)
+            workManager.cancelUniqueWork(workName) // cancel work by unique name
+    }
 }
